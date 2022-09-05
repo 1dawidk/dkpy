@@ -1,5 +1,6 @@
 import serial
 import serial.tools.list_ports
+import serial.serialutil
 
 
 class SuperSerial:
@@ -12,30 +13,33 @@ class SuperSerial:
         for port in ports:
             print('{}.'.format(port.device), end='', flush=True)
 
-            ser = serial.Serial(port.device, baudrate, timeout=0.5)
-            ser.flushInput()
-            found_tag = False
+            try:
+                ser = serial.Serial(port.device, baudrate, timeout=0.5)
+                ser.flushInput()
+                found_tag = False
 
-            for i in range(5):
-                print('.', end='', flush=True)
-                l = ser.read(254)
-                ls = l.decode('utf-8')
+                for i in range(5):
+                    print('.', end='', flush=True)
+                    l = ser.read(254)
+                    ls = l.decode('utf-8')
 
-                for t in tags:
-                    if ls.find(t) > 0:
-                        found_tag = True
+                    for t in tags:
+                        if ls.find(t) > 0:
+                            found_tag = True
+
+                    if found_tag:
+                        break
+
+                ser.close()
 
                 if found_tag:
+                    print('  BINGO!')
+                    found_port = port.device
                     break
-
-            ser.close()
-
-            if found_tag:
-                print('  BINGO!')
-                found_port = port.device
-                break
-            else:
-                print('  not in here :(')
+                else:
+                    print('  not in here :(')
+            except serial.serialutil.SerialException:
+                print('  Cannot open port! Skip!')
 
         return found_port
 
@@ -48,28 +52,31 @@ class SuperSerial:
         for port in ports:
             print('Poking {}.'.format(port.device), end='', flush=True)
 
-            ser = serial.Serial(port.device, baudrate, timeout=0.5)
-            ser.flushInput()
-            ser.write(poke.encode())
-            found_tag = False
+            try:
+                ser = serial.Serial(port.device, baudrate, timeout=0.5)
+                ser.flushInput()
+                ser.write(poke.encode())
+                found_tag = False
 
-            for i in range(3):
-                print('.', end='', flush=True)
-                l = ser.read(512)
-                ls = l.decode('utf-8')
+                for i in range(3):
+                    print('.', end='', flush=True)
+                    l = ser.read(512)
+                    ls = l.decode('utf-8')
 
-                if ls.find(answer) >= 0:
-                    found_tag = True
+                    if ls.find(answer) >= 0:
+                        found_tag = True
+                        break
+
+                ser.close()
+
+                if found_tag:
+                    print('  BINGO!')
+                    found_port = port.device
                     break
-
-            ser.close()
-
-            if found_tag:
-                print('  BINGO!')
-                found_port = port.device
-                break
-            else:
-                print('  not in here :(')
+                else:
+                    print('  not in here :(')
+            except serial.serialutil.SerialException:
+                print('  Cannot open port! Skip!')
 
         return found_port
 
