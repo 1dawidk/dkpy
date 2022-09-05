@@ -1,27 +1,29 @@
 import serial
 import serial.tools.list_ports
 import serial.serialutil
+from typing import List
 
 
 class SuperSerial:
     @staticmethod
-    def find_serial(baudrate, tags, name="uart device"):
+    def find_serial(baudrate: int, tags: List[str], name: str = "uart device", encoding='utf-8'):
         found_port = None
 
         print("Looking for {}...".format(name))
         ports = serial.tools.list_ports.comports()
         for port in ports:
             print('{}.'.format(port.device), end='', flush=True)
+            ser = None
 
             try:
-                ser = serial.Serial(port.device, baudrate, timeout=0.5)
+                ser = serial.Serial(port.device, baudrate, timeout=.4)
                 ser.flushInput()
                 found_tag = False
 
                 for i in range(5):
                     print('.', end='', flush=True)
-                    l = ser.read(254)
-                    ls = l.decode('utf-8')
+                    l = ser.read(512)
+                    ls = l.decode(encoding)
 
                     for t in tags:
                         if ls.find(t) > 0:
@@ -40,28 +42,34 @@ class SuperSerial:
                     print('  not in here :(')
             except serial.serialutil.SerialException:
                 print('  Cannot open port! Skip!')
+            except UnicodeDecodeError:
+                print('  Cannot decode data! Wrong encoding!')
+            finally:
+                if (ser is not None) and ser.isOpen():
+                    ser.close()
 
         return found_port
 
     @staticmethod
-    def find_serial_with_poke(baudrate, poke: str, answer: str, name="uart device"):
+    def find_serial_with_poke(baudrate, poke: str, answer: str, name="uart device", encoding='utf-8'):
         found_port = None
 
         print("Looking for {}...".format(name))
         ports = serial.tools.list_ports.comports()
         for port in ports:
             print('Poking {}.'.format(port.device), end='', flush=True)
+            ser = None
 
             try:
-                ser = serial.Serial(port.device, baudrate, timeout=0.5)
+                ser = serial.Serial(port.device, baudrate, timeout=.4)
                 ser.flushInput()
                 ser.write(poke.encode())
                 found_tag = False
 
-                for i in range(3):
+                for i in range(5):
                     print('.', end='', flush=True)
                     l = ser.read(512)
-                    ls = l.decode('utf-8')
+                    ls = l.decode(encoding)
 
                     if ls.find(answer) >= 0:
                         found_tag = True
@@ -77,6 +85,11 @@ class SuperSerial:
                     print('  not in here :(')
             except serial.serialutil.SerialException:
                 print('  Cannot open port! Skip!')
+            except UnicodeDecodeError:
+                print('  Cannot decode data! Wrong encoding!')
+            finally:
+                if (ser is not None) and ser.isOpen():
+                    ser.close()
 
         return found_port
 
