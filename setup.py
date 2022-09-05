@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="dkpy",
-    version="1.2",
+    version="1.2.2",
     packages=["dkpy"],
     include_package_data=True,
     description="Super, extra library",
