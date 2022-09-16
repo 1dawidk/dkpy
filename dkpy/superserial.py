@@ -6,7 +6,7 @@ from typing import List
 
 class SuperSerial:
     @staticmethod
-    def find_serial(baudrate: int, tags: List[str], name: str = "uart device", encoding='utf-8'):
+    def find_serial(baudrate: int, tags: List[str], name: str = "uart device", encoding='utf-8', timeout=0.4):
         found_port = None
 
         print("Looking for {}...".format(name))
@@ -16,7 +16,7 @@ class SuperSerial:
             ser = None
 
             try:
-                ser = serial.Serial(port.device, baudrate, timeout=.4)
+                ser = serial.Serial(port.device, baudrate, timeout=timeout)
                 ser.flushInput()
                 found_tag = False
 
@@ -51,7 +51,7 @@ class SuperSerial:
         return found_port
 
     @staticmethod
-    def find_serial_with_poke(baudrate, poke: str, answer: str, name="uart device", encoding='utf-8'):
+    def find_serial_with_poke(baudrate, poke: str, answer: str, name="uart device", encoding='utf-8', timeout=0.4):
         found_port = None
 
         print("Looking for {}...".format(name))
@@ -61,7 +61,7 @@ class SuperSerial:
             ser = None
 
             try:
-                ser = serial.Serial(port.device, baudrate, timeout=.4)
+                ser = serial.Serial(port.device, baudrate, timeout=timeout)
                 ser.flushInput()
                 ser.write(poke.encode())
                 found_tag = False
@@ -95,21 +95,39 @@ class SuperSerial:
 
 
 class SerialBuffer:
-    def __init__(self, port, baudrate, maxlen=512):
+    def __init__(self, port, baudrate, maxlen=512, encoding='utf-8'):
         self.serial = serial.Serial(port, baudrate, timeout=0.05)
         self.buf = ''
         self.maxlen = maxlen
+        self.encoding = encoding
 
     def update(self):
         if (self.serial is not None) and self.serial.is_open:
-            r = self.serial.readline().decode()
-            if r.find('\n') >= 0:
-                ret = self.buf + r
+            buf_term = self.buf.find('\n')
+            if buf_term > 0:
+                ret = self.buf[:buf_term]
+                if buf_term == (len(self.buf) - 1):
+                    self.buf = ''
+                else:
+                    self.buf = self.buf[buf_term + 1:]
+
+                return ret.strip("\r")
+            elif buf_term == 0:
                 self.buf = ''
-                return ret
+
+            r = self.serial.readline().decode(encoding=self.encoding)
+            term = r.find('\n')
+            if term > 0:
+                ret = self.buf + r[:term]
+                if term == (len(r) - 1):
+                    self.buf = ''
+                else:
+                    self.buf = r[term + 1:]
+
+                return ret.strip("\r")
             else:
                 self.buf += r
-                return ''
+                return None
         else:
             return None
 
