@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2949eb91-2767-47ab-9897-ae150966248f" name="Changes" comment="SerialBuffer terminated line bug fix" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Aet2taTG9xWyg16gsrfNmMocuj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "/home/dkulpa/ToolBox/PythonProjects/dkpy"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dkpy" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2949eb91-2767-47ab-9897-ae150966248f" name="Changes" comment="" />
+      <created>1655381674709</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1655381674709</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Networking tool added">
+      <created>1655886452851</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1655886452851</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Handling serial error on find serial methods">
+      <created>1662368798064</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1662368798064</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Handling serial error on find serial methods">
+      <created>1662368843608</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1662368843608</updated>
+    </task>
+    <task id="LOCAL-00004" summary="custom encoding added. Decode error handling">
+      <created>1662379171442</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1662379171442</updated>
+    </task>
+    <task id="LOCAL-00005" summary="SerialBuffer terminated line bug fix">
+      <created>1663324326413</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1663324326413</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Networking tool added" />
+    <MESSAGE value="Handling serial error on find serial methods" />
+    <MESSAGE value="custom encoding added. Decode error handling" />
+    <MESSAGE value="SerialBuffer terminated line bug fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="SerialBuffer terminated line bug fix" />
+  </component>
+</project>
