@@ -146,36 +146,40 @@ class NMEAFormatError(Exception):
 
 
 class NMEA:
-    def __init__(self, msg: str):
-        msg = msg.strip('\n\r ')
-        fs = msg.find(',')  # Find first separator
-        terminator = len(msg) - 3
+    def __init__(self, msg: str = None, name: str = None, data=None):
+        if msg is not None:
+            msg = msg.strip('\n\r ')
+            fs = msg.find(',')  # Find first separator
+            terminator = len(msg) - 3
 
-        if len(msg) < 4:
-            raise NMEAFormatError('NMEA format corrupted! (Message too short)')
-        elif msg[0] != '$':
-            raise NMEAFormatError('NMEA format corrupted! ($ not found)')
-        elif fs <= 0:
-            raise NMEAFormatError('NMEA format corrupted! (First separator not found)')
-        elif msg[terminator] != '*':
-            raise NMEAFormatError('NMEA format corrupted! (Terminator not found)')
+            if len(msg) < 4:
+                raise NMEAFormatError('NMEA format corrupted! (Message too short)')
+            elif msg[0] != '$':
+                raise NMEAFormatError('NMEA format corrupted! ($ not found)')
+            elif fs <= 0:
+                raise NMEAFormatError('NMEA format corrupted! (First separator not found)')
+            elif msg[terminator] != '*':
+                raise NMEAFormatError('NMEA format corrupted! (Terminator not found)')
+            else:
+                if NMEA.checksum(msg) != msg[terminator + 1:].upper():
+                    raise NMEAFormatError('Checksum invalid!')
+
+                self.name = msg[1:fs]
+                self.data = msg[fs + 1:-3].split(',')
+                self.checksum = msg[-2:]
+        elif (name is not None) and (data is not None):
+            self.name = name
+            self.data = data
+
+            msg = name
+            for d in data:
+                msg += f',{d}'
+
+            self.checksum = NMEA.checksum(msg)
         else:
-            if NMEA.checksum(msg) != msg[terminator + 1:].upper():
-                raise NMEAFormatError('Checksum invalid!')
-
-            self.name = msg[1:fs]
-            self.data = msg[fs + 1:-3].split(',')
-            self.checksum = msg[-2:]
-
-    def __init__(self, name: str, data):
-        self.name = name
-        self.data = data
-
-        msg = name
-        for d in data:
-            msg += f',{d}'
-
-        self.checksum = NMEA.checksum(msg)
+            self.name = ""
+            self.data = []
+            self.checksum = "00"
 
     def data_len(self):
         return len(self.data)
@@ -202,4 +206,3 @@ class NMEA:
         msg += f'*{self.checksum}\r\n'
 
         return msg
-
