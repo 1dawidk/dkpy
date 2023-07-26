@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="2949eb91-2767-47ab-9897-ae150966248f" name="Changes" comment="SerialBuffer terminated line bug fix" />
+    <list default="true" id="2949eb91-2767-47ab-9897-ae150966248f" name="Changes" comment="SerialBuffer terminated line bug fix">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/dkpy/networking.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/dkpy/networking.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dkpy/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dkpy/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dkpy/networking.py" beforeDir="false" afterPath="$PROJECT_DIR$/dkpy/networking.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dkpy/superserial.py" beforeDir="false" afterPath="$PROJECT_DIR$/dkpy/superserial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dkpy/udpsocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/dkpy/udpsocket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,7 +40,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "last_opened_file_path": "/home/dkulpa/ToolBox/PythonProjects/dkpy"
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/dkulpa/ToolBox/PythonProjects/dkpy/dkpy/networking.py",
+    "settings.editor.selected.configurable": "preferences.general",
+    "two.files.diff.last.used.file": "/home/dkulpa/ToolBox/PythonProjects/dkpy/dkpy/networking.py"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -82,6 +99,17 @@
     </task>
     <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Networking tool added" />
