@@ -164,6 +164,16 @@ class NMEA:
             self.data = msg[fs + 1:-3].split(',')
             self.checksum = msg[-2:]
 
+    def __init__(self, name: str, data):
+        self.name = name
+        self.data = data
+
+        msg = name
+        for d in data:
+            msg += f',{d}'
+
+        self.checksum = NMEA.checksum(msg)
+
     def data_len(self):
         return len(self.data)
 
@@ -181,3 +191,12 @@ class NMEA:
             chcksum = chcksum ^ ord(ch)
 
         return "{:02X}".format(chcksum)
+
+    def __str__(self) -> str:
+        msg = f'${self.name}'
+        for d in self.data:
+            msg += f',{d}'
+        msg += f'*{self.checksum}\r\n'
+
+        return msg
+
