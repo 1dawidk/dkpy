@@ -137,6 +137,9 @@ class SerialBuffer:
     def is_open(self):
         return (self.serial is not None) and self.serial.is_open
 
+    def write(self, msg):
+        self.serial.write(bytes(msg, self.encoding))
+
 
 class NMEAFormatError(Exception):
     pass
