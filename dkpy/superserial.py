@@ -127,8 +127,10 @@ class SerialBuffer:
                 return ret.strip("\r")
             else:
                 self.buf += r
+                print("No termination in readline()")
                 return None
         else:
+            print("Serial is not open")
             return None
 
     def close(self):
