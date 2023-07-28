@@ -104,6 +104,9 @@ class SerialBuffer:
     def update(self):
         if (self.serial is not None) and self.serial.is_open:
             buf_term = self.buf.find('\n')
+            if buf_term < 0:
+                buf_term = self.buf.find('\r')
+
             if buf_term > 0:
                 ret = self.buf[:buf_term]
                 if buf_term == (len(self.buf) - 1):
@@ -117,6 +120,8 @@ class SerialBuffer:
 
             r = self.serial.readline().decode(encoding=self.encoding)
             term = r.find('\n')
+            if term < 0:
+                term = r.find('\r')
             if term > 0:
                 ret = self.buf + r[:term]
                 if term == (len(r) - 1):
